@@ -9,7 +9,6 @@ import lombok.Data;
  * @Date 2021/3/4 16:31
  */
 
-@Data
 public class TreeNode {
     public int val;
     public TreeNode left;
