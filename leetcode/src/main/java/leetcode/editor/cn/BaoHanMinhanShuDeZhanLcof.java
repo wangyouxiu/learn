@@ -44,8 +44,8 @@ class MinStack {
 
     /** initialize your data structure here. */
     public MinStack() {
-        a = new Stack<>();
-        b = new Stack<>();
+        a = new Stack<Integer>();
+        b = new Stack<Integer>();
     }
 
     public void push(int x) {
