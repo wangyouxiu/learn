@@ -4,7 +4,7 @@
 //
 // 示例: 
 //
-// MinStack minStack = new MinStack();
+// MinStack1 minStack = new MinStack1();
 //minStack.push(-2);
 //minStack.push(0);
 //minStack.push(-3);
@@ -71,8 +71,8 @@ class MinStack {
 }
 
 /**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
+ * Your MinStack1 object will be instantiated and called as such:
+ * MinStack1 obj = new MinStack1();
  * obj.push(x);
  * obj.pop();
  * int param_3 = obj.top();
