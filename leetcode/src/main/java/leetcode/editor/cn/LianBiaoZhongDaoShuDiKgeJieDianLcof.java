@@ -33,21 +33,49 @@ public class LianBiaoZhongDaoShuDiKgeJieDianLcof{
  */
 class Solution {
     public ListNode getKthFromEnd(ListNode head, int k) {
+        //双指针法，初始化两指针都在head
+        //p2先走k步
+        //p1,p2同时移动，当p2走到最后时，p1正好在第k个节点
+        //返回p1
+        ListNode p1 = head;
+        ListNode p2 = head;
+
+        for (int i = 0; i < k; i++) {
+            if (p2 == null) {
+                return null;
+            }
+            p2 = p2.next;
+        }
+
+        while (p2 != null) {
+            p2 = p2.next;
+            p1 = p1.next;
+        }
+        return p1;
+    }
+
+
+    //1.遍历链表，进行计数
+    //2.判断k是否大于长度，是，直接返回head
+    //3.计算差值n
+    //4.重新冲head走n步，返回即可
+    /*public ListNode getKthFromEnd(ListNode head, int k) {
         ListNode p1 = head;
         int length = 0;
         while (p1 != null) {
             length++;
             p1 = p1.next;
         }
-        if (length < k) {
+        if (k >= length) {
             return head;
         }
-        int res = length - k;
-        for (int i = 0; i < res; i++) {
+        int n = length - k;
+        for (int i = 0; i < n; i++) {
             head = head.next;
         }
         return head;
-    }
+
+    }*/
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
