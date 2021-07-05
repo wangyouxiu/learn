@@ -48,15 +48,64 @@ package leetcode.editor.cn;
 public class LongestPalindromicSubstring{
     public static void main(String[] args) {
         Solution solution = new LongestPalindromicSubstring().new Solution();
+        solution.longestPalindrome("cbbd");
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public String longestPalindrome(String s) {
+    class Solution {
+        public String longestPalindrome(String s) {
+            int len = s.length();
+            //长度为1，一定是回文串
+            if (len < 2) {
+                return s;
+            }
 
+            boolean[][] dp = new boolean[len][len];
 
-        return "";
+            //初始化dp数组，任何一个字符都是回文串
+            for (int i = 0; i < len; i++) {
+                dp[i][i] = true;
+            }
+
+            int maxLength = 1;
+            int begin = 0;
+            //枚举长度
+            for (int L = 2; L <= len; L++) {
+                //从左边界算起
+                for (int l = 0; l < len; l++) {
+                    //根据左边界和长度L计算有边界
+                    int r = l + L - 1;
+
+                    //右边界可能超出限制
+                    if (r >= len) {
+                        break;
+                    }
+
+                    //当l位置和r位置相等时，才可能是一个回文串
+                    if (s.charAt(l) != s.charAt(r)) {
+                        dp[l][r] = false;
+                    } else {
+                        //l位置和r位置相等还不够，还要判断dp[l+1][r-1]是否是回文串
+                        if (r - l < 3) {
+                            //也就是中间只有一个数，一个数必定是回文串
+                            //或者一共是2个数，外面已经判断过l位置和r位置相等，因此一定是true
+                            dp[l][r] = true;
+                        } else {
+                            dp[l][r] = dp[l + 1][r - 1];
+                        }
+                    }
+
+                    //做记录，如果是回文串，并且长度大于最大长度，就要记录下来
+                    if (dp[l][r] && L > maxLength) {
+                        maxLength = L;
+                        begin = l;
+                    }
+
+                }
+            }
+
+            return s.substring(begin, begin + maxLength);
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

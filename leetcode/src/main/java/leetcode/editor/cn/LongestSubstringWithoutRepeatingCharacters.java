@@ -55,26 +55,26 @@ package leetcode.editor.cn;
         Solution solution = new LongestSubstringWithoutRepeatingCharacters().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int lengthOfLongestSubstring(String s) {
-        int ans = 0;
+    class Solution {
+        public int lengthOfLongestSubstring(String s) {
+            int ans = 0;
 
-        HashSet<Character> hashSet = new HashSet<Character>();
-        int n = s.length();
-        int rk = -1;
-        for (int i = 0; i < n; i++) {
-            if (i > 0) {
-                hashSet.remove(s.charAt(i - 1));
+            HashSet<Character> hashSet = new HashSet<>();
+            int n = s.length();
+            int rk = -1;
+            for (int i = 0; i < n; i++) {
+                if (i > 0) {
+                    hashSet.remove(s.charAt(i - 1));
+                }
+                while (rk + 1 < n && !hashSet.contains(s.charAt(rk + 1))) {
+                    rk++;
+                    hashSet.add(s.charAt(rk));
+                }
+                ans = Math.max(ans, rk - i + 1);
             }
-            while (rk + 1 < n && !hashSet.contains(s.charAt(rk + 1))) {
-                rk++;
-                hashSet.add(s.charAt(rk));
-            }
-            ans = Math.max(ans, rk - i + 1);
+            return ans;
         }
-        return ans;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
