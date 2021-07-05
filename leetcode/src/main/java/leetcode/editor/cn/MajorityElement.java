@@ -30,17 +30,23 @@
   
 package leetcode.editor.cn;
 
-public class MajorityElement{
+    import java.util.Arrays;
+
+    public class MajorityElement{
     public static void main(String[] args) {
         Solution solution = new MajorityElement().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int majorityElement(int[] nums) {
+    class Solution {
+        //使用hashMap统计个数，略
 
-        return -1;
+
+        //排序，之后取中间的数，如果是偶数，取偏左或者偏右都可以。
+        public int majorityElement(int[] nums) {
+            Arrays.sort(nums);
+            return nums[nums.length / 2];
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
