@@ -46,6 +46,15 @@ package leetcode.editor.cn;
             Arrays.sort(nums);
             return nums[nums.length / 2];
         }
+
+
+        //随机化，因为众数占了n/2以上个位置，因此随机找一个数，判断它是否是众数，如果不是，再随机找下一个，直到找到为止。
+
+
+        //分治思想
+        //如果一个数n是数组nums的众数，那么将nums分割为两部分后。n至少是某一部分的众数。因此采用分治思想， 将nums数组层层拆分
+        //直到剩下一个数，那么这个数就是众数
+        //再考虑合并，如果左半边的众数和右半边的众数相等，则合并后众数不变。如果二者不相等，则分别计算两个众数出现的次数，次数多的那个就是合并后的众数。
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
