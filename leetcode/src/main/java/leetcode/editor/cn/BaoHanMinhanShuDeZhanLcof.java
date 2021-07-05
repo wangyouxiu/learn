@@ -31,12 +31,11 @@
   
 package leetcode.editor.cn;
 
-import java.util.LinkedList;
 import java.util.Stack;
 
 public class BaoHanMinhanShuDeZhanLcof{
     public static void main(String[] args) {
-        MinStack solution = new BaoHanMinhanShuDeZhanLcof().new MinStack();
+        MinStack solution = new BaoHanMinhanShuDeZhanLcof().new leetcode.editor.cn.BaoHanMinhanShuDeZhanLcof.MinStack();
     }
 //leetcode submit region begin(Prohibit modification and deletion)
 class MinStack {

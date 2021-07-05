@@ -88,7 +88,7 @@ public class IntersectionOfTwoLinkedLists{
  *     ListNode next;
  *     ListNode(int x) {
  *         val = x;
- *         next = null;
+ *         next = null; 
  *     }
  * }
  */

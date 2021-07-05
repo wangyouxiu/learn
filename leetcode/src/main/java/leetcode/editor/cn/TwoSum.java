@@ -47,24 +47,26 @@
 package leetcode.editor.cn;
 
     import java.util.HashMap;
+    import java.util.HashSet;
+    import java.util.Set;
 
     public class TwoSum{
     public static void main(String[] args) {
         Solution solution = new TwoSum().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> integerHashMap = new HashMap<Integer, Integer>();
-        for (int i = 0; i < nums.length; i++) {
-            if (integerHashMap.containsKey(target - nums[i])) {
-                return new int[]{integerHashMap.get(target - nums[i]), i};
+    class Solution {
+        public int[] twoSum(int[] nums, int target) {
+            HashMap<Integer, Integer> integerHashMap = new HashMap<Integer, Integer>();
+            for (int i = 0; i < nums.length; i++) {
+                if (integerHashMap.containsKey(target - nums[i])) {
+                    return new int[]{integerHashMap.get(target - nums[i]), i};
+                }
+                integerHashMap.put(nums[i], i);
             }
-            integerHashMap.put(nums[i], i);
+            return new int[0];
         }
-        return new int[0];
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
