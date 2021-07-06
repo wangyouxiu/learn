@@ -35,7 +35,7 @@ import java.util.Stack;
 
 public class BaoHanMinhanShuDeZhanLcof{
     public static void main(String[] args) {
-        MinStack solution = new BaoHanMinhanShuDeZhanLcof().new leetcode.editor.cn.BaoHanMinhanShuDeZhanLcof.MinStack();
+        MinStack solution = new BaoHanMinhanShuDeZhanLcof().new MinStack();
     }
 //leetcode submit region begin(Prohibit modification and deletion)
 class MinStack {

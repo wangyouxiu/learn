@@ -45,9 +45,8 @@ package leetcode.editor.cn;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class MinStack {
+public class MinStackOut {
     public static void main(String[] args) {
-        leetcode.editor.cn.MinStack.MinStack solution = new leetcode.editor.cn.MinStack().new leetcode.editor.cn.MinStack.MinStack();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class MinStack {
