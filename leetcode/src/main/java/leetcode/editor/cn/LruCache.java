@@ -75,6 +75,8 @@ public class LruCache {
 
     /**
      * 使用链表+hashMap实现
+     * 注意Node要设计为k,v形式，因为在删除的时候，要对应的从map中删除元素，因此需要知道k
+     * 任意元素被访问时，都需要将元素移动至链表尾部
      */
     class LRUCache {
 
