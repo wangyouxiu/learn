@@ -1,0 +1,30 @@
+### 解题思路
+
+先提取其符号位，然后将其数字转换成字符串，然后将字符串反转，再将其转换为数字；
+重要地点： 在字符串转成整型时，若此时超出指定大小，就报异常，返回0即可。
+若是成功，最后将数乘上符号位即可进行返回。
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int reverse(int x) {
+        int symbol = -1;
+        if(x>=0)
+            symbol = 1;
+        String str = String.valueOf(x*symbol);
+        StringBuffer stringBuffer = new StringBuffer(str);
+        stringBuffer.reverse();
+        str = stringBuffer.toString();
+        try{
+            int answer = Integer.valueOf(str) * symbol;
+            return answer;
+        }catch(Exception ex){
+            return 0;
+        }
+    }
+}
+```
+
