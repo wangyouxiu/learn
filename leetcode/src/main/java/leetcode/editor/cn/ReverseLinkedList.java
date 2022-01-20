@@ -44,6 +44,7 @@
   
 package leetcode.editor.cn;
 
+import com.sun.deploy.uitoolkit.impl.awt.AWTDragHelper;
 import leetcode.util.ListNode;
 
 import java.util.List;
@@ -51,6 +52,8 @@ import java.util.List;
 public class ReverseLinkedList{
     public static void main(String[] args) {
         Solution solution = new ReverseLinkedList().new Solution();
+        ListNode listNode = new ListNode(1, new ListNode(2, new ListNode(3, null)));
+        solution.reverseList(listNode);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -68,14 +71,15 @@ class Solution {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode newHead = reverseList(head.next);
+        ListNode newNode = reverseList(head.next);
         head.next.next = head;
         head.next = null;
-        return newHead;
+        return newNode;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
+}
 //    public ListNode reverseList(ListNode head) {
 //        ListNode prev = null;
 //        ListNode curr = head;
@@ -87,5 +91,3 @@ class Solution {
 //        }
 //        return prev;
 //    }
-
-}

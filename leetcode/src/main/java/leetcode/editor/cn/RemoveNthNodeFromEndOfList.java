@@ -60,34 +60,22 @@ package leetcode.editor.cn;
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        // 使用辅助节点避免边界问题
+        ListNode head1 = new ListNode(0, head);
 
-        /**
-         * 双指针解决
-         * 1.快指针先走n步
-         * 2.快慢指针同时走，当快指针走到链表尾部，慢指针正好在倒数第n个位置上
-         * 由于需要删除第n个位置的节点，所以我们如果能够获得倒数第n个位置的前导节点会更方便。
-         * 因此，在初始化时，快指针从head开始，慢指针从一个虚节点开始，这样，慢指针最终会指向倒数第n个节点的前导节点
-         * 这样的好处还可以避免当链表长度为1，要删除倒数第1个节点的情况。也正是因为这种情况，链表删除完之后就为Null了。
-         * 所以返回的时候不能返回head,而是返回虚节点的next。而next在上述情况下是为null的
-         */
-
-        ListNode listNode = new ListNode(0, head);
-
-        ListNode p1 = head;
-        ListNode p2 = listNode;
+        ListNode p1 = head1;
+        ListNode p2 = head1;
         for (int i = 0; i < n; i++) {
-            p1 = p1.next;
-        }
-
-        while (p1 != null) {
-            p1 = p1.next;
             p2 = p2.next;
         }
+        while (p2.next != null) {
+            p2 = p2.next;
+            p1 = p1.next;
+        }
 
-        p2.next = p2.next.next;
+        p1.next = p1.next.next;
 
-        return listNode.next;
-
+        return head1.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

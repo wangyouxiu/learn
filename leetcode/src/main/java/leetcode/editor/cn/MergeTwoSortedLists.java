@@ -57,23 +57,28 @@ package leetcode.editor.cn;
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        // 做一个辅助头节点
         ListNode head = new ListNode(0);
-        ListNode h = head;
-        while (l1 != null && l2 != null) {
+        ListNode curr = head;
+        while (l1 != null || l2 != null) {
+            if (l1 == null) {
+                curr.next = l2;
+                break;
+            }
+            if (l2 == null) {
+                curr.next = l1;
+                break;
+            }
             if (l1.val <= l2.val) {
-                h.next = l1;
+                curr.next = l1;
                 l1 = l1.next;
-            }else {
-                h.next = l2;
+            }else{
+                curr.next = l2;
                 l2 = l2.next;
             }
-            h = h.next;
+            curr = curr.next;
         }
-        if (l1 == null) {
-            h.next = l2;
-        } else {
-            h.next = l1;
-        }
+
         return head.next;
     }
 }

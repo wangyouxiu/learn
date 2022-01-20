@@ -53,7 +53,7 @@ public class ReverseInteger{
     class Solution {
         public int reverse(int x) {
             int s = Math.abs(x);
-
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
