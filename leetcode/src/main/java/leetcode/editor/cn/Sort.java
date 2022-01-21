@@ -12,9 +12,10 @@ public class Sort {
 //        int[] sortedArray = sort.bubbleSort(array);
 //        int[] sortedArray = sort.selectionSort(array);
 //        int[] sortedArray = sort.insertionSort(array);
-        int[] sortedArray = sort.mergeSort(array, 0, array.length - 1);
+//        int[] sortedArray = sort.mergeSort(array, 0, array.length - 1);
 //        int[] sortedArray = sort.quickSort(array, 0, array.length - 1);
-        System.out.println(Arrays.toString(sortedArray));
+        sort.countingSort(array, array.length);
+        System.out.println(Arrays.toString(array));
     }
 
     //冒泡排序  O(n^2)
@@ -148,5 +149,49 @@ public class Sort {
         array[j] = t;
     }
 
+    // 桶排序  O(n) 将数据分桶,桶内使用快排
+
+    // 计数排序 O(n)
+    public void countingSort(int[] array, int n) {
+        if (n <= 1) {
+            return;
+        }
+
+        // 求 max
+        int max = array[0];
+        for (int i = 1; i < n; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+
+        // 申请数组,长度 max+1
+        int[] c = new int[max + 1];
+
+        //计数
+        for (int i = 0; i < n; i++) {
+            c[array[i]]++;
+        }
+
+        //累加
+        for (int i = 1; i < max + 1; i++) {
+            c[i] = c[i - 1] + c[i];
+        }
+
+        //申请临时数组,存储结果  从后往前取,才是稳定排序
+        int[] temp = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            int index = c[array[i]] - 1;
+            c[array[i]]--;
+            temp[index] = array[i];
+        }
+
+        for (int i = 0; i < n; i++) {
+            array[i] = temp[i];
+        }
+
+    }
+
+    // 基数排序  O(n)  将待排序数据按照高低位分割,每一位进行桶或者计数排序
 
 }
