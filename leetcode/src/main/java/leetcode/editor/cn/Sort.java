@@ -68,9 +68,7 @@ public class Sort {
                 }
             }
             if (min != i) {
-                int t = array[min];
-                array[min] = array[i];
-                array[i] = t;
+                swap(array, i, min);
             }
         }
 
