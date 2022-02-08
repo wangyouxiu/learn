@@ -1,0 +1,94 @@
+# 哈希表
+
+最容易想到的解法是，申请一个二维矩阵，暴力对每一个灯 $lamps$ 和 $queries$ ，遍历矩阵进行处理，但矩阵的大小 $n$ 最大为 $10^9$，显然这样会超时。
+
+**哈希表优化**
+
+申请 $4$ 个哈希表，分别表示**行、列、两个对角线**的**灯的数量**。
+
+- 对于每一个 $lamps_i$，将其所在的行、列、两个对角线都填充到哈希表，具体来说。
+  - 对于行的哈希表，$key$ 为 $lamps_i$ 的 $x$，$value$ 为 $1$。
+  - 对于列的哈希表，$key$ 为 $lamps_i$ 的 $y$，$value$ 为 $1$。
+  - 对于上对角线(左上到右下)的哈希表，$key$ 为 $lamps_i$ 的 $x-y$，$value$ 为 $1$。
+  - 对于下对角线(左下到右上)的哈希表，$key$ 为 $lamps_i$ 的 $x+y$，$value$ 为 $1$。
+- 同时申请一个 $set$，将每个点放到 $set$ 里面，以便于在 $queries$ 的过程中，检查相邻的 $8$ 个点是不是灯。
+
+对于每一个 $queries_i$，设其横坐标为 $qx$，纵坐标为 $qy$。
+
+- 如果其行、列、两个对角线的哈希表，存在至少一个大于$0$，则表示照亮；反之未照亮。
+- **关闭操作**，我们可以查询上面的 $set$，检查相邻的点是不是灯，若是灯，将其对应的行、列、两个对角线的哈希表，对应都减去 $1$；反之不需要操作。
+
+**注意：同一个点不要多次插入到哈希表。**
+
+时间复杂度：$O((n+m)\log{(m+n)})$,$n$ 表示 $lamps.size()$，$m$ 表示 $queries.size()$。
+
+空间复杂度：$O(n+m)$
+
+# 代码
+
+* c++
+
+```c++
+class Solution {
+public:
+    vector<int> gridIllumination(int n, vector<vector<int>>& lamps, vector<vector<int>>& queries) {
+        set<pair<int, int> > point;
+        map<int, int> r, c, d, rd;
+
+        for (int i = 0; i < lamps.size(); i++) {
+            int x = lamps[i][0], y = lamps[i][1];
+            if (point.find({x, y}) == point.end()) {
+                point.insert({x, y});
+                r[x]++;
+                c[y]++;
+                d[x - y]++;
+                rd[x + y]++;
+            }
+        }
+      	
+        vector<int> ans (queries.size());
+        for (int i = 0; i < queries.size(); i++) {
+            int x = queries[i][0], y = queries[i][1];
+            if (r[x] || c[y] || d[x - y] || rd[x + y])
+                ans[i] = 1;
+            else
+                ans[i] = 0;
+            for (int rx = -1; rx <= 1; rx++) {
+                for (int ry = -1; ry <= 1; ry++) {
+                    int nx = x + rx, ny = y + ry;
+                    if (point.find({ nx, ny}) != point.end()) {
+                        cout << nx << ' ' << ny << endl;
+                        point.erase({nx, ny});
+                        r[nx]--;
+                        c[ny]--;
+                        d[nx - ny]--;
+                        rd[nx + ny]--;
+                    }
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+
+# 最后
+
+大家好，我是编程熊，ACM亚洲区域赛金牌，字节跳动、旷视科技前员工，欢迎 [关注我](https://leetcode-cn.com/u/bianchengxiong/) 和加入 [LeetCode组队刷题群](https://mp.weixin.qq.com/s/TsTcCDboXwnTnUeIW3Zg9Q)。
+
+**分享几篇《算法与数据结构》干货文章，希望对你有帮助**
+
+1、[ACM金牌选手讲解LeetCode算法《线性表》](https://mp.weixin.qq.com/s/qwaYOFIksFVqZtA_nisl6g)
+
+2、[ACM金牌选手讲解LeetCode算法《栈和队列的高级应用》](https://mp.weixin.qq.com/s/I3DQOUmABmWav4nrAiI3Fg)
+
+3、[ACM金牌选手讲解LeetCode算法《哈希表》](https://mp.weixin.qq.com/s/af4gvYURUoCTfsyzsI9Www)
+
+4、[ACM金牌选手讲解LeetCode算法《二叉树》](https://mp.weixin.qq.com/s/8AcRNQS0Nno2_fU6kMtZeQ)
+
+5、[编程熊讲解LeetCode算法《堆》](https://mp.weixin.qq.com/s/ggd42G_QJ6I43F-vXSbpdA)
+
+6、[ACM金牌选手讲解几力扣LeetCode算法《堆排序》](https://mp.weixin.qq.com/s/tgmGyCszY-_DfttxftfvnA)
+
+如果题解和文章对你有所帮助，欢迎**点赞**支持。

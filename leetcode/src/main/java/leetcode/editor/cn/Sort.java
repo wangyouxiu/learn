@@ -12,10 +12,11 @@ public class Sort {
 //        int[] sortedArray = sort.bubbleSort(array);
 //        int[] sortedArray = sort.selectionSort(array);
 //        int[] sortedArray = sort.insertionSort(array);
-//        int[] sortedArray = sort.mergeSort(array, 0, array.length - 1);
+        int[] sortedArray = sort.mergeSort(array, 0, array.length - 1);
 //        int[] sortedArray = sort.quickSort(array, 0, array.length - 1);
-        sort.countingSort(array, array.length);
-        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(sortedArray));
+//        sort.countingSort(array, array.length);
+//        System.out.println(Arrays.toString(array));
     }
 
     //冒泡排序  O(n^2)
@@ -24,10 +25,8 @@ public class Sort {
             boolean flag = false;
             for (int j = 0; j < array.length - i - 1; j++) {
                 if (array[j] > array[j + 1]) {
-                    int t = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = t;
                     flag = true;
+                    swap(array, j, j + 1);
                 }
             }
             if (!flag) {
@@ -35,27 +34,6 @@ public class Sort {
             }
         }
         return array;
-    }
-
-    //插入排序 O(n^2)
-    public int[] insertionSort(int[] array){
-
-        for (int i = 1; i < array.length; i++) {
-            int t = array[i];
-            int j = i - 1;
-            for (; j >= 0; j--) {
-                if (array[j] > t) {
-                    array[j + 1] = array[j];
-                } else {
-                    break;
-                }
-            }
-            array[j + 1] = t;
-        }
-
-
-        return array;
-
     }
 
     //选择排序 O(n^2)
@@ -69,11 +47,29 @@ public class Sort {
                 }
             }
             if (min != i) {
-                swap(array, i, min);
+                swap(array, min, i);
             }
         }
-
         return array;
+    }
+
+    //插入排序 O(n^2)
+    public int[] insertionSort(int[] array){
+
+        for (int i = 1; i < array.length; i++) {
+            int t = array[i];
+            int j = i - 1;
+            for (; j >= 0; j--) {
+                if (t < array[j]) {
+                    array[j + 1] = array[j];
+                }else{
+                    break;
+                }
+            }
+            array[j + 1] = t;
+        }
+        return array;
+
     }
 
     // 归并排序 O(n*logn)
