@@ -1,4 +1,4 @@
-    //给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重
+//给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重
 //复的三元组。 
 //
 // 注意：答案中不可以包含重复的三元组。 
@@ -37,17 +37,18 @@
 // Related Topics 数组 双指针 排序 
 // 👍 3473 👎 0
 
-  
+
 package leetcode.editor.cn;
 
-    import java.util.ArrayList;
-    import java.util.Arrays;
-    import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    public class ThreeSum{
+public class ThreeSum {
     public static void main(String[] args) {
         Solution solution = new ThreeSum().new Solution();
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
@@ -74,7 +75,7 @@ package leetcode.editor.cn;
                 if (nums[i] > 0) {
                     break;
                 }
-                if (i > 0 && nums[i] == nums[i-1]) {
+                if (i > 0 && nums[i] == nums[i - 1]) {
                     continue;
                 }
                 //定义双指针
@@ -82,13 +83,21 @@ package leetcode.editor.cn;
                 while (l < r) {
                     int temp = nums[i] + nums[l] + nums[r];
                     if (temp > 0) {
-                        while (l < r && nums[r] == nums[--r]) {};
+                        while (l < r && nums[r] == nums[--r]) {
+                        }
+                        ;
                     } else if (temp < 0) {
-                        while (l < r && nums[l] == nums[++l]) {};
+                        while (l < r && nums[l] == nums[++l]) {
+                        }
+                        ;
                     } else {
                         result.add(new ArrayList<>(Arrays.asList(nums[i], nums[l], nums[r])));
-                        while (l < r && nums[r] == nums[--r]) {};
-                        while (l < r && nums[l] == nums[++l]) {};
+                        while (l < r && nums[r] == nums[--r]) {
+                        }
+                        ;
+                        while (l < r && nums[l] == nums[++l]) {
+                        }
+                        ;
                     }
                 }
             }
