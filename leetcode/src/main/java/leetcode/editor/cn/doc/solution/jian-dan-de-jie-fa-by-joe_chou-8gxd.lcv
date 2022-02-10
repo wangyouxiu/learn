@@ -1,0 +1,54 @@
+### 解题思路
+
+没什么，就是和官方一致
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int arrayPairSum(int[] nums) {
+        if(nums.length<1){
+            return 0;
+        }
+        int length = nums.length - 1;
+        this.sort(nums,0, length);
+
+        int i=0;
+        int sum=0;
+        while (i<length){
+            sum+=nums[i];
+            i+=2;
+        }
+        return sum;
+    }
+
+    private void sort(int[] nums,int start,int end){
+        if(start>=end){
+            return;
+        }
+
+        int s=start;
+        int e=end;
+        int p=nums[start];
+
+        while (s<e){
+            while (nums[s]<p&&s<e) s++;
+            while (nums[e]>p&&s<e) e--;
+
+            if(nums[s]==nums[e]&&s<e){
+                s++;
+            }else{
+                int v=nums[s];
+                nums[s]=nums[e];
+                nums[e]=v;
+            }
+        }
+
+        if(s-1>start) sort(nums,start,s-1);
+        if(e+1<end) sort(nums,e+1,end);
+    }
+}
+```
+

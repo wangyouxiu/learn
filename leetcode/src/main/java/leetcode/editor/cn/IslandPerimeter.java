@@ -52,8 +52,8 @@ public class IslandPerimeter {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        static int[] dx = {0, 1, 0, -1};
-        static int[] dy = {1, 0, -1, 0};
+        int[] dx = {0, 1, 0, -1};
+        int[] dy = {1, 0, -1, 0};
         public int islandPerimeter(int[][] grid) {
             // 遍历计数
 //            int count = 0, n = grid.length, m = grid[0].length;
