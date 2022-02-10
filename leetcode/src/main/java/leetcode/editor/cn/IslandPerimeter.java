@@ -52,8 +52,56 @@ public class IslandPerimeter {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        static int[] dx = {0, 1, 0, -1};
+        static int[] dy = {1, 0, -1, 0};
         public int islandPerimeter(int[][] grid) {
+            // 遍历计数
+//            int count = 0, n = grid.length, m = grid[0].length;
+//            for (int i = 0; i < n; i++) {
+//                for (int j = 0; j < m; j++) {
+//                    if (grid[i][j] == 1) {
+//                        int sum = 0;
+//
+//                        for (int k = 0; k < 4; k++) {
+//                            int tx = i + dx[k];
+//                            int ty = j + dy[k];
+//                            if (tx < 0 || tx >= n || ty < 0 || ty >= m || grid[tx][ty] == 0) {
+//                                sum++;
+//                            }
+//                        }
+//                        count += sum;
+//                    }
+//                }
+//            }
+//            return count;
+            // 广度优先搜索
+            int count = 0, n = grid.length, m = grid[0].length;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (grid[i][j] == 1) {
+                        count += dfs(i, j, n, m, grid);
+                    }
+                }
+            }
+            return count;
+        }
 
+        private int dfs(int i, int j, int n, int m, int[][] grid) {
+            if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == 0) {
+                return 1;
+            }
+            if (grid[i][j] == 2) {
+                return 0;
+            }
+            grid[i][j] = 2;
+
+            int count = 0;
+            for (int k = 0; k < 4; k++) {
+                int tx = i + dx[k];
+                int ty = j + dy[k];
+                count += dfs(tx, ty, n, m, grid);
+            }
+            return count;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
