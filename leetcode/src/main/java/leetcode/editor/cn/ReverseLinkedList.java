@@ -44,10 +44,7 @@
   
 package leetcode.editor.cn;
 
-import com.sun.deploy.uitoolkit.impl.awt.AWTDragHelper;
 import leetcode.util.ListNode;
-
-import java.util.List;
 
 public class ReverseLinkedList{
     public static void main(String[] args) {

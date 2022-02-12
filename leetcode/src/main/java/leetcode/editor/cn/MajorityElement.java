@@ -30,11 +30,6 @@
   
 package leetcode.editor.cn;
 
-    import com.sun.jmx.snmp.SnmpUnknownMsgProcModelException;
-
-    import java.util.Arrays;
-    import java.util.Random;
-
     public class MajorityElement{
     public static void main(String[] args) {
         Solution solution = new MajorityElement().new Solution();
