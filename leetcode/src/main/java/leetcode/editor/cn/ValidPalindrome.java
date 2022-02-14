@@ -49,12 +49,6 @@ public class ValidPalindrome {
 // 生成新的字符串，然后反转比较即可
             int n = s.length();
             StringBuilder sb = new StringBuilder();
-
-            //
-            char[] a = {'a'};
-            
-            //
-
             for(int i = 0 ; i < n ; i++){
                 if(Character.isLetterOrDigit(s.charAt(i))){
                     sb.append(Character.toLowerCase(s.charAt(i)));

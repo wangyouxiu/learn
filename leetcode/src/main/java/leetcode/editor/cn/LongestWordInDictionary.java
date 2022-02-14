@@ -34,64 +34,73 @@
 
 package leetcode.editor.cn;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
-
 public class LongestWordInDictionary {
     public static void main(String[] args) {
         Solution solution = new LongestWordInDictionary().new Solution();
-        solution.longestWord(new String[]{"a", "banana", "app", "appl", "ap", "apply", "apple"});
+        solution.longestWord(new String[]{"m","mo","moc","moch","mocha","l","la","lat","latt","latte","c","ca","cat"});
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-        class TrieNode{
+        class TrieNode {
             char data;
             TrieNode[] children = new TrieNode[26];
             boolean isEndingChar = false;
+            String str = "";
 
             public TrieNode(char data) {
                 this.data = data;
             }
         }
 
+        public void insert(String s) {
+            TrieNode p = root;
+            char[] ch = s.toCharArray();
+            for (int i = 0; i < ch.length; i++) {
+                int index = ch[i] - 'a';
+                if (p.children[index] == null) {
+                    TrieNode trieNode = new TrieNode(ch[i]);
+                    p.children[index] = trieNode;
+                }
+                p = p.children[index];
+            }
+            p.isEndingChar = true;
+            p.str = s;
+        }
+
+        public void dfs(TrieNode node,int deep) {
+            if (deep >0 && !node.isEndingChar) {
+                return;
+            }
+            if (deep > maxLength) {
+                maxLength = deep;
+                ans = node.str;
+            }
+            ++deep;
+            for (int i = 0; i < node.children.length; i++) {
+                if (node.children[i] != null) {
+                    dfs(node.children[i], deep);
+                }
+            }
+        }
+
         TrieNode root = new TrieNode('/');
+        int maxLength = 0;
+        String ans = "";
 
         public String longestWord(String[] words) {
             // Trie树/前缀树
             // 构建前缀树
             for (String word : words) {
-                TrieNode p = root;
-                char[] ch = word.toCharArray();
-                for (int i = 0; i < ch.length; i++) {
-                    int index = ch[i] - 'a';
-                    if (p.children[index] == null) {
-                        TrieNode trieNode = new TrieNode(ch[i]);
-                        p.children[index] = trieNode;
-                    }
-                    p = p.children[index];
-                }
-                p.isEndingChar = true;
+                insert(word);
             }
+
 
             //dfs
-            TrieNode p = root;
-            StringBuilder sb = new StringBuilder();
+            dfs(root,0);
 
-            while (p.children != null) {
-                for (int i = 0; i < p.children.length; i++) {
-                    if (p.children[i] != null) {
-                        p = p.children[i];
-                        sb.append(p.data);
-                        break;
-                    }
-                }
-            }
-
-            return sb.toString();
+            return ans;
 
             // 模拟
 //            Arrays.sort(words);
