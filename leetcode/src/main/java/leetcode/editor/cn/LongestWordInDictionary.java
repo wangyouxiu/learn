@@ -47,23 +47,69 @@ public class LongestWordInDictionary {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        class TrieNode{
+            char data;
+            TrieNode[] children = new TrieNode[26];
+            boolean isEndingChar = false;
+
+            public TrieNode(char data) {
+                this.data = data;
+            }
+        }
+
+        TrieNode root = new TrieNode('/');
+
         public String longestWord(String[] words) {
-            Arrays.sort(words);
-            Set<String> set = new HashSet<>();
-            String ans = "";
+            // Trie树/前缀树
+            // 构建前缀树
             for (String word : words) {
-                set.add(word);
-                int i = 1;
-                for (; i < word.length(); i++) {
-                    if (!set.contains(word.substring(0, i))) {
+                TrieNode p = root;
+                char[] ch = word.toCharArray();
+                for (int i = 0; i < ch.length; i++) {
+                    int index = ch[i] - 'a';
+                    if (p.children[index] == null) {
+                        TrieNode trieNode = new TrieNode(ch[i]);
+                        p.children[index] = trieNode;
+                    }
+                    p = p.children[index];
+                }
+                p.isEndingChar = true;
+            }
+
+            //dfs
+            TrieNode p = root;
+            StringBuilder sb = new StringBuilder();
+
+            while (p.children != null) {
+                for (int i = 0; i < p.children.length; i++) {
+                    if (p.children[i] != null) {
+                        p = p.children[i];
+                        sb.append(p.data);
                         break;
                     }
                 }
-                if (i == word.length()) {
-                    ans = word.length() > ans.length() ? word : ans;
-                }
             }
-            return ans;
+
+            return sb.toString();
+
+            // 模拟
+//            Arrays.sort(words);
+//            Set<String> set = new HashSet<>();
+//            String ans = "";
+//            for (String word : words) {
+//                set.add(word);
+//                int i = 1;
+//                for (; i < word.length(); i++) {
+//                    if (!set.contains(word.substring(0, i))) {
+//                        break;
+//                    }
+//                }
+//                if (i == word.length()) {
+//                    ans = word.length() > ans.length() ? word : ans;
+//                }
+//            }
+//            return ans;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
