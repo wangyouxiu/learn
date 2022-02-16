@@ -1,0 +1,108 @@
+## 朴素解法
+
+最终目的是让两个数组总和相等。
+
+我们可以先分别求得两个数组总和为 $aSum$ 和 $bSum$。
+
+即有数组总和 $total = aSum + bSum$。
+
+同时得数组目标总和 $target = total / 2$。
+
+当前两个数组与目标总和的差值分别为 $target - aSum$ 和 $target - bSum$。
+
+我们记 $diff = target - aSum$。
+
+对于某个 $a[i]$ 而言，如果 $a[i]$ 能构成答案，那么 `b` 数组中必然存在大小为 $a[i] + diff$ 的值，使得两者交换后，数组总和均为 $target$。
+
+因此我们只需要遍历数组 `a`，查找哪一个 $a[i]$ 使得 $a[i] + diff$ 存在于数组 `b` 即可。
+
+代码：
+
+* []
+
+```Java
+class Solution {
+    public int[] fairCandySwap(int[] a, int[] b) {
+        int aSum = 0, bSum = 0;
+        for (int i : a) aSum += i;  
+        for (int i : b) bSum += i;  
+        int total = aSum + bSum, target = total / 2;
+        int diff = target - aSum;
+        int[] ans = new int[2];
+        for (int i : a) {
+            if (find(b, i + diff)) {
+                ans[0] = i;
+                ans[1] = i + diff;
+            }
+        }
+        return ans;
+    }
+    boolean find(int[] nums, int target) {
+        for (int i : nums) {
+            if (i == target) return true;
+        }
+        return false;
+    }
+}
+```
+
+* 时间复杂度： 计算总和复杂度为 $O(n)$，找到最终解复杂度为 $O(n^2)$。整体复杂度为 $O(n^2)$
+* 空间复杂度：$O(1)$
+
+***
+
+## 查找优化
+
+上述解法之所以无法做到线性，是因为我们每次都要对数组 `b` 进行扫描，确定 $a[i] + diff$ 是否存在。
+
+我们知道 map/set/数组 都可以实现 $O(1)$ 查找，由于这里明确给出了两个数组中出现的数的范围，因此可以使用数组进行计数。
+
+同时可以优化一下变量的使用，使用一个变量 $diff$ 来计算最终的差异值。
+
+这种优化，是典型的空间换时间做法。
+
+代码：
+
+* []
+
+```Java
+class Solution {
+    public int[] fairCandySwap(int[] a, int[] b) {
+        // 先求得 a 的总和
+        int diff = 0;
+        for (int i : a) diff += i;  
+
+        // 使用 cnt 统计 b 中的数的出现次数，同时计算 a 总和与 b 总和的差值
+        int[] cnt = new int[100009];
+        for (int i : b) {
+            diff -= i;
+            cnt[i]++;
+        }
+
+        // 计算出 a 中具体的替换差值是多少
+        diff /= -2;
+        int[] ans = new int[2];
+        for (int i : a) {
+            int target = i + diff;
+            // 如果目标替换量在合法范围，并且存在于 b 数组中。说明找到解了
+            if (target >= 1 && target <= 100000 && cnt[target] > 0) {
+                ans[0] = i;
+                ans[1] = target;
+                break;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+* 时间复杂度：计算总和复杂度为 $O(n)$，找到最终解复杂度为 $O(n)$。整体复杂度为 $O(n)$
+* 空间复杂度：使用 `cnt` 数组进行计数。复杂度为 $O(n)$
+
+***
+
+## 最后
+
+**如果有帮助到你，请给题解点个赞和收藏，让更多的人看到 ~ ("▔□▔)/**
+
+也欢迎你 [关注我](https://oscimg.oschina.net/oscnet/up-19688dc1af05cf8bdea43b2a863038ab9e5.png) 和 加入我们的[「组队打卡」](https://leetcode-cn.com/u/ac_oier/)小群 ，提供写「证明」&「思路」的高质量题解
