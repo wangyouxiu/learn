@@ -104,7 +104,7 @@ public class FindSmallestLetterGreaterThanTarget {
                     right = mid - 1;
                 }
             }
-            if (right < nums.length && nums[right] == target) {
+            if (right >= 0 && nums[right] == target) {
                 return right;
             }else{
                 return -1;

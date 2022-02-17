@@ -1,0 +1,26 @@
+### 解题思路
+
+一边构建一边查找：
+先看奇偶
+奇数加积
+偶数都加
+一次遍历
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+        HashSet<Integer>set =new HashSet<Integer>();
+        for(int i:arr){
+            if(set.contains(i))return true;
+            set.add(i*2);
+            if(i%2==0)set.add(i/2);
+        }
+        return false;
+    }
+}
+```
+

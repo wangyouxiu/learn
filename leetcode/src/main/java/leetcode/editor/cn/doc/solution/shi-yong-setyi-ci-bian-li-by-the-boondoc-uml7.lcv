@@ -1,0 +1,18 @@
+* 
+
+```
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        set<int> st;
+        for(int a : arr){
+            if((st.count(a*2))||((a&1)==0&&st.count(a/2))){
+                return true;
+            }
+            st.insert(a);
+        }
+        return false;
+    }
+};
+```
+

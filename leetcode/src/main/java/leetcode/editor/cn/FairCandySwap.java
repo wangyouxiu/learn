@@ -51,15 +51,35 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class FairCandySwap {
     public static void main(String[] args) {
         Solution solution = new FairCandySwap().new Solution();
+        solution.fairCandySwap(new int[]{1, 2, 5}, new int[]{2, 4});
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] fairCandySwap(int[] aliceSizes, int[] bobSizes) {
-
+            int suma = Arrays.stream(aliceSizes).sum();
+            int sumb = Arrays.stream(bobSizes).sum();
+            int k = (sumb - suma) / 2;
+            Set<Integer> set = new HashSet<>();
+            int[] ans = new int[2];
+            for (int y : bobSizes) {
+                set.add(y);
+            }
+            for (int x : aliceSizes) {
+                if (set.contains(k + x)) {
+                    ans[0] = x;
+                    ans[1] = k + x;
+                    break;
+                }
+            }
+            return ans;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
